@@ -3,8 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Triangles</title>
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#position-button').click(function () {
+                var input = $('#position-input').text();
+                input = input.replace(/[^a-zA-Z0-9]/g,'').toUpperCase();
+                $('#position-input').text(input);
+                var position = input.match(/^([A-F])([1-9]|1[0-2])/);
+                if(!position){
+                    alert("Only positions in the range A-F,1-12 valid")
+                }
+                $.getJSON(
+                    'api/row/' + position[1] + '/column/' + position[2],
+                    function (triangle) {
+                        $('#position-result').text(triangle.vertices.map(function(vertex){return vertex.x + ',' + vertex.y}).join(' '))
+                    })
+                    .fail(function(jqxhr){
+                        alert(jqxhr.responseText)
+                    })
+            });
+        });
+    </script>
 </head>
 <body>
-
+<h1>Triangles</h1>
+<p>Service demonstrates ASP.NET Web Application built using C#.</p>
+<h2>Get Triangle By Position</h2>
+<div>Position: <span contenteditable="true" id="position-input">A1</span></div>
+<div class="button", id="position-button">Get</div>
+<div id="position-result"></div>
 </body>
 </html>
