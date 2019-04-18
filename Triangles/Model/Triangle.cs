@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace Triangles.Model
 {
@@ -10,7 +11,7 @@ namespace Triangles.Model
 
         public Triangle(Vertex v1, Vertex v2, Vertex v3, int column, char row)
         {
-            Vertices = new[]{v1, v2, v3};
+            Vertices = new[]{v1, v2, v3}.OrderBy(v => v).ToArray();
             Column = column;
             Row = row;
         }
@@ -32,6 +33,11 @@ namespace Triangles.Model
         public override int GetHashCode()
         {
             return HashCode.Combine(Vertices[0], Vertices[1], Vertices[2]);
+        }
+
+        public override string ToString()
+        {
+            return $"{Row}{Column} ({Vertices[0]} {Vertices[1]} {Vertices[2]})";
         }
     }
 }

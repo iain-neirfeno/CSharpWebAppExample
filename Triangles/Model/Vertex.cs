@@ -2,7 +2,7 @@ using System;
 
 namespace Triangles.Model
 {
-    public class Vertex
+    public class Vertex : IComparable
     {
         public int X { get; }
         public int Y { get; }
@@ -22,6 +22,23 @@ namespace Triangles.Model
         public override int GetHashCode()
         {
             return HashCode.Combine(X, Y);
+        }
+
+        public override string ToString()
+        {
+            return $"{X},{Y}";
+        }
+
+        public int CompareTo(object obj)
+        {
+            var other = (Vertex) obj;
+            var diff = X.CompareTo(other.X);
+            if (diff == 0)
+            {
+                diff = Y.CompareTo(other.Y);
+            }
+
+            return diff;
         }
     }
 }

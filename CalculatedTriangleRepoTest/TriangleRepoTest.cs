@@ -10,7 +10,7 @@ namespace CalculatedTriangleRepoTest
 
         public TriangleRepoTest()
         {
-            _testSubject = new TriangleRepo();
+            _testSubject = new TriangleRepo(6, 12, 10);
         }
         
         [Theory]
