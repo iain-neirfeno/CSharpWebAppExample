@@ -1,4 +1,5 @@
 using Triangles.TriangleByPosition;
+using Xunit;
 
 namespace TrianglesTest.TriangleByPosition
 {
@@ -10,5 +11,13 @@ namespace TrianglesTest.TriangleByPosition
         {
             _testSubject = new TriangleByPositionService();
         }
+    
+        [Fact]
+        public void TestGetTriangleByPositionReturnsVertices()
+        {
+            var result = _testSubject.GetTriangleByPosition('A', 1);
+            Assert.IsType<TriangleVertices>(result);
+        }
+        
     }
 }
