@@ -1,13 +1,13 @@
 namespace Triangles.TriangleByPosition
 {
-    public struct Vertex
+    public struct VertexDto
     {
         public int X;
         public int Y;
 
     }
-    public struct TriangleVertices
+    public struct TriangleVerticesDto
     {
-        public Vertex[] Vertices;
+        public VertexDto[] Vertices;
     }
 }
