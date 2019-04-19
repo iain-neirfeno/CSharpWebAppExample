@@ -30,9 +30,17 @@ namespace CalculatedTriangleRepoTest
         [InlineData(12, 'B', 50, 10, 60, 10, 60, 20)]
         [InlineData(1, 'F', 0, 50, 0, 60, 10, 60)]
         [InlineData(12, 'F', 50, 50, 60, 50, 60, 60)]
-        public void TestFindTrianglesByColumnAndRow(int column, char row, int v1X, int v1Y, int v2X, int v2Y, int v3X, int v3Y)
+        public void TestFindTrianglesByColumnAndRow(
+            int column, char row, int v1X, int v1Y, int v2X, int v2Y, int v3X, int v3Y
+            )
         {
-            var expected = new Triangle(new Vertex(v1X, v1Y), new Vertex(v2X, v2Y), new Vertex(v3X, v3Y), column, row);
+            var expected = new Triangle(
+                new Vertex(v1X, v1Y), 
+                new Vertex(v2X, v2Y), 
+                new Vertex(v3X, v3Y), 
+                column, 
+                row
+                );
             var result = _testSubject.FindTriangleByRowAndColumn(row, column);
             Assert.NotNull(result);
             Assert.Equal(expected, result);
@@ -66,9 +74,17 @@ namespace CalculatedTriangleRepoTest
         [InlineData(12, 'B', 50, 10, 60, 10, 60, 20)]
         [InlineData(1, 'F', 0, 50, 0, 60, 10, 60)]
         [InlineData(12, 'F', 50, 50, 60, 50, 60, 60)]
-        public void TestFindTrianglesByVertices(int column, char row, int v1X, int v1Y, int v2X, int v2Y, int v3X, int v3Y)
+        public void TestFindTrianglesByVertices(
+            int column, char row, int v1X, int v1Y, int v2X, int v2Y, int v3X, int v3Y
+            )
         {
-            var expected = new Triangle(new Vertex(v1X, v1Y), new Vertex(v2X, v2Y), new Vertex(v3X, v3Y), column, row);
+            var expected = new Triangle(
+                new Vertex(v1X, v1Y), 
+                new Vertex(v2X, v2Y), 
+                new Vertex(v3X, v3Y), 
+                column, 
+                row
+                );
             var result = _testSubject.FindTriangleByVertices(v1X, v1Y, v2X, v2Y, v3X, v3Y);
             Assert.NotNull(result);
             Assert.Equal(expected, result);

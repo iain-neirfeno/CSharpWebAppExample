@@ -20,7 +20,14 @@ namespace TrianglesTest.TriangleByVertices
         [Fact]
         public void TestGetTriangleByPositionReturnsVertices()
         {
-            _repo.Setup(_ => _.FindTriangleByVertices(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(new Triangle(
+            _repo.Setup(_ => _.FindTriangleByVertices(
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>())
+            ).Returns(new Triangle(
                     new Vertex(1, 1),
                     new Vertex(1, 1),
                     new Vertex(1, 1),
@@ -35,15 +42,32 @@ namespace TrianglesTest.TriangleByVertices
         [Fact]
         public void TestGetTriangleCoordinatesThrowsExceptionIfNotExists()
         {
-            _repo.Setup(_ => _.FindTriangleByVertices(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns((Triangle) null);
-            Assert.Throws<ArgumentOutOfRangeException>(() => _testSubject.GetTriangleByVertices(1, 1, 1, 1, 1, 1));
+            _repo.Setup(_ => _.FindTriangleByVertices(
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>())
+            ).Returns(
+                (Triangle) null
+            );
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _testSubject.GetTriangleByVertices(1, 1, 1, 1, 1, 1)
+                );
         }
         
         [Fact]
         public void TestGetTriangleCoordinatesResponseMatchesTriangleReturned()
         {
-            _repo.Setup(_ => _.FindTriangleByVertices(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(
-                new Triangle(
+            _repo.Setup(_ => _.FindTriangleByVertices(
+                    It.IsAny<int>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<int>())
+            ).Returns(new Triangle(
                     new Vertex(1, 4),
                     new Vertex(2, 5),
                     new Vertex(3, 6),
@@ -59,8 +83,14 @@ namespace TrianglesTest.TriangleByVertices
         [Fact]
         public void TestGetTriangleCoordinatesRequestsByColumnAndRowToRepo()
         {
-            _repo.Setup(_ => _.FindTriangleByVertices(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())).Returns(
-                new Triangle(
+            _repo.Setup(_ => _.FindTriangleByVertices(
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>(), 
+                It.IsAny<int>())
+            ).Returns(new Triangle(
                     new Vertex(1, 1),
                     new Vertex(1, 1),
                     new Vertex(1, 1),
@@ -69,7 +99,14 @@ namespace TrianglesTest.TriangleByVertices
                 )
             );
             _testSubject.GetTriangleByVertices(1, 2, 3, 4, 5, 6);
-            _repo.Verify(_ => _.FindTriangleByVertices(It.Is<int>(c => c == 1), It.Is<int>(c => c == 2), It.Is<int>(c => c == 3), It.Is<int>(c => c == 4), It.Is<int>(c => c == 5), It.Is<int>(c => c == 6)), Times.AtLeastOnce);
+            _repo.Verify(_ => _.FindTriangleByVertices(
+                It.Is<int>(c => c == 1), 
+                It.Is<int>(c => c == 2), 
+                It.Is<int>(c => c == 3),
+                It.Is<int>(c => c == 4),
+                It.Is<int>(c => c == 5),
+                It.Is<int>(c => c == 6)),
+                Times.AtLeastOnce);
         }
     }
 }

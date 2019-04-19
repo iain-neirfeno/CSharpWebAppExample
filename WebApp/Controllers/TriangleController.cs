@@ -12,7 +12,10 @@ namespace WebApp.Controllers
         private readonly TriangleByPositionService _triangleByPositionService;
         private readonly TriangleByVerticesService _triangleByVerticesService;
 
-        public TriangleController(TriangleByPositionService triangleByPositionService, TriangleByVerticesService triangleByVerticesService)
+        public TriangleController(
+            TriangleByPositionService triangleByPositionService, 
+            TriangleByVerticesService triangleByVerticesService
+            )
         {
             _triangleByPositionService = triangleByPositionService;
             _triangleByVerticesService = triangleByVerticesService;

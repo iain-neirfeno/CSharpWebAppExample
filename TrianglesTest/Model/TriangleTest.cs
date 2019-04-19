@@ -66,7 +66,12 @@ namespace TrianglesTest.Model
 
         private static Triangle MakeTriangle(int v1X, int v1Y, int v2X, int v2Y, int v3X, int v3Y)
         {
-            return new Triangle(new Vertex(v1X, v1Y), new Vertex(v2X, v2Y), new Vertex(v3X, v3Y), 1, 'A');
+            return new Triangle(
+                new Vertex(v1X, v1Y), 
+                new Vertex(v2X, v2Y), 
+                new Vertex(v3X, v3Y), 
+                1,
+                'A');
         }
     }
 }

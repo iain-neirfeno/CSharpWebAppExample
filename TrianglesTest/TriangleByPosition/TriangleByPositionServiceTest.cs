@@ -20,7 +20,10 @@ namespace TrianglesTest.TriangleByPosition
         [Fact]
         public void TestGetTriangleByPositionReturnsVertices()
         {
-            _repo.Setup(_ => _.FindTriangleByRowAndColumn(It.IsAny<char>(), It.IsAny<int>())).Returns(new Triangle(
+            _repo.Setup(_ => _.FindTriangleByRowAndColumn(
+                It.IsAny<char>(), 
+                It.IsAny<int>())
+            ).Returns(new Triangle(
                     new Vertex(1, 1),
                     new Vertex(1, 1),
                     new Vertex(1, 1),
@@ -35,8 +38,13 @@ namespace TrianglesTest.TriangleByPosition
         [Fact]
         public void TestGetTriangleCoordinatesThrowsExceptionIfNotExists()
         {
-            _repo.Setup(_ => _.FindTriangleByRowAndColumn(It.IsAny<char>(), It.IsAny<int>())).Returns((Triangle) null);
-            Assert.Throws<ArgumentOutOfRangeException>(() => _testSubject.GetTriangleByPosition('A', 1));
+            _repo.Setup(_ => _.FindTriangleByRowAndColumn(
+                It.IsAny<char>(), 
+                It.IsAny<int>())
+            ).Returns((Triangle) null);
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _testSubject.GetTriangleByPosition('A', 1)
+                );
         }
         
         [Fact]
@@ -73,7 +81,10 @@ namespace TrianglesTest.TriangleByPosition
                 )
             );
             _testSubject.GetTriangleByPosition('A', 1);
-            _repo.Verify(_ => _.FindTriangleByRowAndColumn(It.Is<char>(r => r == 'A'), It.Is<int>(c => c == 1)), Times.AtLeastOnce);
+            _repo.Verify(_ => _.FindTriangleByRowAndColumn(
+                It.Is<char>(r => r == 'A'), 
+                It.Is<int>(c => c == 1)
+                ), Times.AtLeastOnce);
         }
         
     }
