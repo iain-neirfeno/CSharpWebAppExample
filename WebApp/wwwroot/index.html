@@ -23,15 +23,41 @@
                         alert(jqxhr.responseText)
                     })
             });
+            $('#vertices-button').click(function () {
+                var input = $('#vertices-input').text();
+                input = input.replace(/[^0-9, ]/g,'');
+                $('#vertices-input').text(input);
+                var position = input.match(/^([0-9]+),([0-9]+) ([0-9]+),([0-9]+) ([0-9]+),([0-9]+)/);
+                if(!position){
+                    alert("Vertices must be given in the format: 0,0 10,0 10,10")
+                }
+                $.getJSON(
+                    'api?vertex=' + position[1] + ',' + position[2] + '&vertex=' + position[3] + ',' + position[4] + '&vertex=' + position[5] + ',' + position[6],
+                    function (triangle) {
+                        $('#vertices-result').text(triangle.row + triangle.column)
+                    })
+                    .fail(function(jqxhr){
+                        alert(jqxhr.responseText)
+                    })
+            });
         });
     </script>
 </head>
 <body>
+
 <h1>Triangles</h1>
 <p>Service demonstrates ASP.NET Web Application built using C#.</p>
-<h2>Get Triangle By Position</h2>
-<div>Position: <span contenteditable="true" id="position-input">A1</span></div>
-<div class="button", id="position-button">Get</div>
-<div id="position-result"></div>
+<section>
+    <h2>Get Triangle By Position</h2>
+    <div>Position: <span contenteditable="true" id="position-input">A1</span></div>
+    <div class="button", id="position-button">Get</div>
+    <div id="position-result"></div>
+</section>
+<section>
+    <h2>Get Triangle By Vertices</h2>
+    <div>Vertices: <span contenteditable="true" id="vertices-input">0,0 0,10 10,10</span></div>
+    <div class="button", id="vertices-button">Get</div>
+    <div id="vertices-result"></div>
+</section>
 </body>
 </html>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Triangles.TriangleByPosition;
+using Triangles.TriangleByVertices;
 
 namespace WebApp
 {
@@ -20,9 +21,12 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var triangleRepo = new TriangleRepo(6, 12, 10);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddTransient<ITriangleByPositionRepo>(_ => new TriangleRepo(6, 12, 10));
+            services.AddSingleton<ITriangleByPositionRepo>(triangleRepo);
+            services.AddSingleton<ITiangeByVerticesRepo>(triangleRepo);
             services.AddTransient<TriangleByPositionService>();
+            services.AddTransient<TriangleByVerticesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
