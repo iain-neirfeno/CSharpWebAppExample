@@ -1,15 +1,22 @@
 using System;
-using System.Linq;
+using AutoMapper;
+using Triangles.Model;
 
 namespace Triangles.TriangleByPosition
 {
     public class TriangleByPositionService
     {
         private readonly ITriangleByPositionRepo _repo;
+        private readonly IMapper _mapper;
         
         public TriangleByPositionService(ITriangleByPositionRepo repo)
         {
             _repo = repo;
+            _mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Triangle, TriangleVerticesDto>();
+                cfg.CreateMap<Vertex, VertexDto>();
+            }).CreateMapper();
         }
 
         /// <summary>
@@ -27,14 +34,7 @@ namespace Triangles.TriangleByPosition
                 throw new ArgumentOutOfRangeException();
             }
 
-            return new TriangleVerticesDto
-            {
-                Vertices = triangle.Vertices.Select(v => new VertexDto
-                {
-                    X = v.X,
-                    Y = v.Y
-                }).ToArray()
-            };
+            return _mapper.Map<TriangleVerticesDto>(triangle);
         }
     }
 }
