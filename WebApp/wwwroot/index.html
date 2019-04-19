@@ -18,10 +18,11 @@
             });
             positionButton.click(function () {
                 var input = positionInput.val();
-                var position = input.match(/^([A-F])(1[0-2])|([A-F])([1-9])/).filter(function (v) { return v });
+                var position = input.match(/^([A-F])(1[0-2])|([A-F])([1-9])$/);
                 if(!position){
                     alert("Only positions in the range A-F,1-12 valid")
                 }
+                position = position.filter(function (v) { return v });
                 $.getJSON(
                     'api/row/' + position[1] + '/column/' + position[2],
                     function (triangle) {
