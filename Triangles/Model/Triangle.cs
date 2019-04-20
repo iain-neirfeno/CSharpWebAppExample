@@ -20,12 +20,7 @@ namespace Triangles.Model
         {
             var other = (Triangle) obj;
             for (var i = 0; i < 3; ++i)
-            {
-                if (!Vertices[i].Equals(other.Vertices[i]))
-                {
-                    return false;
-                }
-            }
+                if (!Vertices[i].Equals(other.Vertices[i])) return false;
 
             return true;
         }

@@ -65,15 +65,9 @@ namespace WebApp.Controllers
                 throw new ArgumentException("Vertex argument must be comma separated X,Y coordinate");
             }
 
-            if (vertices.Length != 3)
-            {
-                throw new ArgumentException("Require 3 vertices to determine triangle name");
-            }
+            if (vertices.Length != 3) throw new ArgumentException("Require 3 vertices to determine triangle name");
 
-            if (vertices.FirstOrDefault(a => a.Length != 2) != null)
-            {
-                throw new ArgumentException("Each vertex must include the X and Y coordinate");
-            }
+            if (vertices.FirstOrDefault(a => a.Length != 2) != null) throw new ArgumentException("Each vertex must include the X and Y coordinate");
 
             return vertices;
         }

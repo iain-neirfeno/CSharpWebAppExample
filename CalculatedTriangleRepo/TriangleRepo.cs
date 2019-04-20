@@ -23,10 +23,7 @@ namespace CalculatedTriangleRepo
         {
             var rowIndex = GetRowIndex(row);
             
-            if (!IsValidLocation(rowIndex, column))
-            {
-                return null;
-            }
+            if (!IsValidLocation(rowIndex, column)) return null;
          
             var inversionFactor = (column - 1) % 2;
 
@@ -45,10 +42,7 @@ namespace CalculatedTriangleRepo
 
         public Triangle FindTriangleByVertices(int v1X, int v1Y, int v2X, int v2Y, int v3X, int v3Y)
         {
-            if (!(IsValidVertex(v1X, v1Y) && IsValidVertex(v2X, v2Y) && IsValidVertex(v3X, v3Y)))
-            {
-                return null;
-            }
+            if (!(IsValidVertex(v1X, v1Y) && IsValidVertex(v2X, v2Y) && IsValidVertex(v3X, v3Y))) return null;
 
             var vertices = new[] {new Vertex(v1X, v1Y), new Vertex(v2X, v2Y), new Vertex(v3X, v3Y)};
             var topLeftVertex = FindTopLeftVertex(vertices);
@@ -56,10 +50,7 @@ namespace CalculatedTriangleRepo
             var bottomRightVertex = FindBottomRightVertex(vertices, topLeftVertex);
             var bottomLeftVertex = FindBottomLeftVertex(vertices, topLeftVertex);
 
-            if (!AllVerticesPresent(topRightVertex, bottomLeftVertex, bottomRightVertex))
-            {
-                return null;
-            }
+            if (!AllVerticesPresent(topRightVertex, bottomLeftVertex, bottomRightVertex)) return null;
             
             var row = (char) (65 + topLeftVertex.Y / 10);
             var column = topLeftVertex.X / 5 + 1 + (topRightVertex != null ? 1 : 0);

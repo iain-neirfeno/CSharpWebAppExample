@@ -29,10 +29,8 @@ namespace Triangles.TriangleByPosition
         public TriangleVerticesDto GetTriangleByPosition(char row, int column)
         {
             var triangle = _repo.FindTriangleByRowAndColumn(row, column);
-            if (triangle == null)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
+            
+            if (triangle == null) throw new ArgumentOutOfRangeException();
 
             return _mapper.Map<TriangleVerticesDto>(triangle);
         }

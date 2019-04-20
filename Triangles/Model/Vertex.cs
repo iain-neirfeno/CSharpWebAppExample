@@ -33,10 +33,8 @@ namespace Triangles.Model
         {
             var other = (Vertex) obj;
             var diff = X.CompareTo(other.X);
-            if (diff == 0)
-            {
-                diff = Y.CompareTo(other.Y);
-            }
+            
+            if (diff == 0)  diff = Y.CompareTo(other.Y);
 
             return diff;
         }
