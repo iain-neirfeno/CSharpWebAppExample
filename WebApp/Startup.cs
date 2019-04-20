@@ -21,7 +21,10 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var triangleRepo = new TriangleRepo(6, 12, 10);
+            var triangleRepo = new TriangleRepo(
+                Configuration.GetValue<int>("Triangles:NumberOfRows"), 
+                Configuration.GetValue<int>("Triangles:NumberOfColumns"), 
+                Configuration.GetValue<int>("Triangles:LegLength"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<ITriangleByPositionRepo>(triangleRepo);
             services.AddSingleton<ITiangeByVerticesRepo>(triangleRepo);
