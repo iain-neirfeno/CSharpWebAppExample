@@ -104,5 +104,13 @@ namespace CalculatedTriangleRepoTest
         {
             Assert.Null(_testSubject.FindTriangleByVertices(v1X, v1Y, v2X, v2Y, v3X, v3Y));
         }
+
+        [Theory]
+        [InlineData(0, 0, 0, 60, 60, 60)]
+        [InlineData(0, 0, 0, 10, 0, 10)]
+        public void TestInvalidDimensionsReturnsNullForFindByVertices(int v1Y, int v1X, int v2Y, int v2X, int v3Y, int v3X)
+        {
+            Assert.Null(_testSubject.FindTriangleByVertices(v1X, v1Y, v2X, v2Y, v3X, v3Y));
+        }
     }
 }
