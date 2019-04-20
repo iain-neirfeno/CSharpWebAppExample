@@ -52,8 +52,8 @@ namespace CalculatedTriangleRepo
 
             if (!AllVerticesPresent(topRightVertex, bottomLeftVertex, bottomRightVertex)) return null;
             
-            var row = (char) (65 + topLeftVertex.Y / 10);
-            var column = topLeftVertex.X / 5 + 1 + (topRightVertex != null ? 1 : 0);
+            var row = (char) ('A' + topLeftVertex.Y / _triangleSideLength);
+            var column = topLeftVertex.X / (_triangleSideLength / 2) + 1 + (topRightVertex != null ? 1 : 0);
             return new Triangle(vertices[0], vertices[1], vertices[2], column, row);
         }
 
@@ -62,24 +62,24 @@ namespace CalculatedTriangleRepo
             return bottomRightVertex != null && (topRightVertex != null || bottomLeftVertex != null);
         }
 
-        private static Vertex FindBottomLeftVertex(Vertex[] vertices, Vertex topLeftVertex)
+        private Vertex FindBottomLeftVertex(Vertex[] vertices, Vertex topLeftVertex)
         {
-            return vertices.FirstOrDefault(v => v.X == topLeftVertex.X && v.Y == topLeftVertex.Y + 10);
+            return vertices.FirstOrDefault(v => v.X == topLeftVertex.X && v.Y == topLeftVertex.Y + _triangleSideLength);
         }
 
-        private static Vertex FindTopRightVertex(Vertex[] vertices, Vertex topLeftVertex)
+        private Vertex FindTopRightVertex(Vertex[] vertices, Vertex topLeftVertex)
         {
-            return vertices.FirstOrDefault(v => v.X == topLeftVertex.X + 10 && v.Y == topLeftVertex.Y);
+            return vertices.FirstOrDefault(v => v.X == topLeftVertex.X + _triangleSideLength && v.Y == topLeftVertex.Y);
         }
 
-        private static Vertex FindBottomRightVertex(Vertex[] vertices, Vertex topLeftVertex)
+        private Vertex FindBottomRightVertex(Vertex[] vertices, Vertex topLeftVertex)
         {
-            return vertices.FirstOrDefault(v => v.X == topLeftVertex.X + 10 && v.Y == topLeftVertex.Y + 10);
+            return vertices.FirstOrDefault(v => v.X == topLeftVertex.X + _triangleSideLength && v.Y == topLeftVertex.Y + _triangleSideLength);
         }
 
-        private static Vertex FindTopLeftVertex(Vertex[] vertices)
+        private Vertex FindTopLeftVertex(Vertex[] vertices)
         {
-            return vertices.OrderBy(v => v.X * 60 + v.Y).First();
+            return vertices.OrderBy(v => v.X * _triangleSideLength * (_numberOfColumns / 2) + v.Y).First();
         }
 
         private bool IsValidLocation(int row, int column)
@@ -108,12 +108,15 @@ namespace CalculatedTriangleRepo
 
         private static int GetRowIndex(char row)
         {
-            return row - 64;
+            return row - 'A' + 1;
         }
 
-        private static bool IsValidVertex(int x, int y)
+        private bool IsValidVertex(int x, int y)
         {
-            return x % 10 == 0 && y % 10 == 0 && x >= 0 && x <= 60 && y >= 0 && y <= 60;
+            
+            return x % _triangleSideLength == 0 && y % _triangleSideLength == 0 &&
+                   x >= 0 && x <= _triangleSideLength * (_numberOfColumns / 2) &&
+                   y >= 0 && y <= _triangleSideLength * _numberOfRows;
         }
         
         
