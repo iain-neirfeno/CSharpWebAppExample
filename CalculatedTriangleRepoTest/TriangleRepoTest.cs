@@ -50,8 +50,10 @@ namespace CalculatedTriangleRepoTest
         [Theory]
         [InlineData(0, 'A')]
         [InlineData(13, 'A')]
-        [InlineData(0, '0')]
-        [InlineData(0, 'G')]
+        [InlineData(1, '0')]
+        [InlineData(1, 'G')]
+        [InlineData(-1, 'A')]
+        [InlineData(1, '$')]
         public void TestOutOfBoundsReturnsNullForFindByColumnAndRow(int column, char row)
         {
             Assert.Null(_testSubject.FindTriangleByRowAndColumn(row, column));
@@ -93,6 +95,11 @@ namespace CalculatedTriangleRepoTest
 
         [Theory]
         [InlineData(0, 1, 2, 3, 4, 5)]
+        [InlineData(0, -1, -2, -3, -4, -5)]
+        [InlineData(0, 0, 0, 10, -10, 10)]
+        [InlineData(0, 0, 0, -10, 10, -10)]
+        [InlineData(60, 0, 60, 10, 70, 10)]
+        [InlineData(0, 60, 10, 60, 10, 70)]
         public void TestOutOfBoundsReturnsNullForFindByVertices(int v1Y, int v1X, int v2Y, int v2X, int v3Y, int v3X)
         {
             Assert.Null(_testSubject.FindTriangleByVertices(v1X, v1Y, v2X, v2Y, v3X, v3Y));
