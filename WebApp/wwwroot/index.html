@@ -70,17 +70,12 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
-            <h3>Get Triangle By Position</h3>
-            <p>Task 1.A Finds the vertices of any triangle in a grid A-F by 1-12</p>
-        </div>
-        <div class="col-sm-6">
-            <h3>Get Triangle By Vertices</h3>
-            <p>Task 1.B Finds the position of a triangle within a grid A-F by 1-12 based on it&apos;s coordinates</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6 fill">
+            <div class="h-50">
+                <h3>Get Triangle By Position</h3>
+                <p>Task 1.A Finds the vertices of any triangle in a grid A-F by 1-12</p>
+            </div>
+            <div class="h-50 align-bottom">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Position</span>
@@ -88,9 +83,15 @@
                 <input id="position-input" type="text" class="form-control" placeholder="A1">
                 <button class="btn btn-sm btn-primary" id="position-button">Get</button>
             </div>
-            <div id="position-result"></div>
+            <div id="position-result">&nbsp;</div>
+            </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 fill">
+            <div class="h-50 ove">
+                <h3>Get Triangle By Vertices</h3>
+                <p>Task 1.B Finds the position of a triangle within a grid A-F by 1-12 based on it&apos;s coordinates</p>
+            </div>
+            <div class="h-50 align-bottom">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Vertices</span>
@@ -98,7 +99,8 @@
                 <input id="vertices-input" type="text" class="form-control" placeholder="0,0 0,10 10,10">
                 <button class="btn btn-sm btn-primary" id="vertices-button">Get</button>
             </div>
-            <div id="vertices-result"></div>
+            <div id="vertices-result">&nbsp;</div>
+            </div>
         </div>
     </div>
 </div>
