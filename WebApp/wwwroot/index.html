@@ -35,22 +35,34 @@
 
             
             var verticesButton = $('#vertices-button');
-            var verticesInput = $('#vertices-input');
+            var verticesInput1 = $('#vertices-input-1');
+            var verticesInput2 = $('#vertices-input-2');
+            var verticesInput3 = $('#vertices-input-3');
+            
+            var cleanInput = function(inputEl){
+                return function(){
+                    var input = inputEl.val();
+                    input = input.replace(/[^0-9]/g,',').replace(/([0-9]+,[0-9]+).*/g, '$1');
+                    inputEl.val(input);
+                };
+            };
 
-            verticesInput.keyup(function(){
-                var input = verticesInput.val();
-                input = input.replace(/[^0-9]/g,',').replace(/([0-9]+,[0-9]+),/g, '$1 ').replace(/(([0-9]+,[0-9]+ ?){3}).*/, '$1');
-                verticesInput.val(input);
-            });
+            verticesInput1.keyup(cleanInput(verticesInput1));
+            verticesInput2.keyup(cleanInput(verticesInput2));
+            verticesInput3.keyup(cleanInput(verticesInput3));
             
             verticesButton.click(function () {
-                var input = verticesInput.val();
-                var position = input.match(/^([0-9]+),([0-9]+) ([0-9]+),([0-9]+) ([0-9]+),([0-9]+)/);
-                if(!position){
-                    alert("Vertices must be given in the format: 0,0 10,0 10,10")
+                var input = function(inputEl){
+                    return inputEl.val().match(/^([0-9]+),([0-9]+)/);
+                };
+                var v1 = input(verticesInput1);
+                var v2 = input(verticesInput2);
+                var v3 = input(verticesInput3);
+                if(!v1 || !v2 || !v3){
+                    alert("Vertices must be given in the format: 0,0. All must be provided")
                 }
                 $.getJSON(
-                    'api?vertex=' + position[1] + ',' + position[2] + '&vertex=' + position[3] + ',' + position[4] + '&vertex=' + position[5] + ',' + position[6],
+                    'api?vertex=' + v1[1] + ',' + v1[2] + '&vertex=' + v2[1] + ',' + v2[2] + '&vertex=' + v3[1] + ',' + v3[2],
                     function (triangle) {
                         $('#vertices-result').text(triangle.row + triangle.column)
                     })
@@ -94,9 +106,21 @@
             <div class="h-50 align-bottom">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Vertices</span>
+                    <span class="input-group-text">Vertex</span>
                 </div>
-                <input id="vertices-input" type="text" class="form-control" placeholder="0,0 0,10 10,10">
+                <input id="vertices-input-1" type="text" class="form-control" placeholder="0,0">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Vertex</span>
+                </div>
+                <input id="vertices-input-2" type="text" class="form-control" placeholder="0,0">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Vertex</span>
+                </div>
+                <input id="vertices-input-3" type="text" class="form-control" placeholder="0,0">
                 <button class="btn btn-sm btn-primary" id="vertices-button">Get</button>
             </div>
             <div id="vertices-result">&nbsp;</div>
