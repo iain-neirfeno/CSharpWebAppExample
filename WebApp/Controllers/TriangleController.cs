@@ -1,8 +1,9 @@
 using System;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Triangles.TriangleByPosition;
 using Triangles.TriangleByVertices;
+using WebApp.Dto;
 
 namespace WebApp.Controllers
 {
@@ -26,55 +27,30 @@ namespace WebApp.Controllers
         {
             try
             {
-                var triangleVertices = _triangleByPositionService.GetTriangleByPosition(char.ToUpper(row), column);
-                return Ok(triangleVertices);
+                return Ok(_triangleByPositionService.GetTriangleByPosition(char.ToUpper(row), column));
             }
-            catch (ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException e)
             {
                 return NotFound(new {
-                    error = $"No triangle found at location {row}{column}"
+                    message = e.Message
                 });
             }
         }
         
         [HttpGet]
-        public ActionResult FindTriangle(string vertex1, string vertex2, string vertex3)
+        public ActionResult FindTriangle([Required] Vertex vertex1, [Required] Vertex vertex2, [Required] Vertex vertex3)
         {
             try
             {
-                var vertex1Coords = ConvertVertices(vertex1);
-                var vertex2Coords = ConvertVertices(vertex2);
-                var vertex3Coords = ConvertVertices(vertex3);
-                var t = _triangleByVerticesService.GetTriangleByVertices(vertex1Coords[0], vertex1Coords[1],
-                    vertex2Coords[0], vertex2Coords[1], vertex3Coords[0], vertex3Coords[1]);
-                return Ok(t);
+                return Ok(_triangleByVerticesService.GetTriangleByVertices(vertex1.X, vertex1.Y, vertex2.X, vertex2.Y, vertex3.X, vertex3.Y));
             }
             catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new
+                {
+                    message = e.Message
+                });
             }
-        }
-
-        private static int[] ConvertVertices(string vertex)
-        {
-            if (vertex == null)
-            {
-                throw new ArgumentException("All 3 vertices must be provided");
-            }
-            
-            int[] vertexCoords;
-            try
-            {
-                vertexCoords = vertex.Split(',').Select(int.Parse).ToArray();
-            }
-            catch
-            {
-                throw new ArgumentException("Vertex argument must be comma separated X,Y coordinate");
-            }
-
-            if (vertexCoords.Length != 2) throw new ArgumentException("Each vertex must include the X and Y coordinate");
-
-            return vertexCoords;
         }
     }
 }

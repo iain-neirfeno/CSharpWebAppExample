@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Triangles.TriangleByPosition;
 using Triangles.TriangleByVertices;
+using WebApp.Attributes;
 
 namespace WebApp
 {
@@ -25,7 +26,8 @@ namespace WebApp
                 Configuration.GetValue<int>("Triangles:NumberOfRows"), 
                 Configuration.GetValue<int>("Triangles:NumberOfColumns"), 
                 Configuration.GetValue<int>("Triangles:LegLength"));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(c => { c.Filters.Add(new CheckModelStateAttribute()); })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<ITriangleByPositionRepo>(triangleRepo);
             services.AddSingleton<ITiangeByVerticesRepo>(triangleRepo);
             services.AddTransient<TriangleByPositionService>();
