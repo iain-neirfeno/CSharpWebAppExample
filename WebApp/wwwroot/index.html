@@ -62,7 +62,7 @@
                     alert("Vertices must be given in the format: 0,0. All must be provided")
                 }
                 $.getJSON(
-                    'api?vertex=' + v1[1] + ',' + v1[2] + '&vertex=' + v2[1] + ',' + v2[2] + '&vertex=' + v3[1] + ',' + v3[2],
+                    'api?vertex1=' + v1[1] + ',' + v1[2] + '&vertex2=' + v2[1] + ',' + v2[2] + '&vertex3=' + v3[1] + ',' + v3[2],
                     function (triangle) {
                         $('#vertices-result').text(triangle.row + triangle.column)
                     })

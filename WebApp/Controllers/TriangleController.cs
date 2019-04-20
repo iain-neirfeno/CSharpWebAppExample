@@ -38,13 +38,15 @@ namespace WebApp.Controllers
         }
         
         [HttpGet]
-        public ActionResult FindTriangle(string[] vertex)
+        public ActionResult FindTriangle(string vertex1, string vertex2, string vertex3)
         {
             try
             {
-                var vertices = ConvertVertices(vertex);
-                var t = _triangleByVerticesService.GetTriangleByVertices(vertices[0][0], vertices[0][1],
-                    vertices[1][0], vertices[1][1], vertices[2][0], vertices[2][1]);
+                var vertex1Coords = ConvertVertices(vertex1);
+                var vertex2Coords = ConvertVertices(vertex2);
+                var vertex3Coords = ConvertVertices(vertex3);
+                var t = _triangleByVerticesService.GetTriangleByVertices(vertex1Coords[0], vertex1Coords[1],
+                    vertex2Coords[0], vertex2Coords[1], vertex3Coords[0], vertex3Coords[1]);
                 return Ok(t);
             }
             catch (ArgumentException e)
@@ -53,23 +55,26 @@ namespace WebApp.Controllers
             }
         }
 
-        private static int[][] ConvertVertices(string[] vertex)
+        private static int[] ConvertVertices(string vertex)
         {
-            int[][] vertices;
+            if (vertex == null)
+            {
+                throw new ArgumentException("All 3 vertices must be provided");
+            }
+            
+            int[] vertexCoords;
             try
             {
-                vertices = vertex.Select(v => v.Split(",").Select(int.Parse).ToArray()).ToArray();
+                vertexCoords = vertex.Split(',').Select(int.Parse).ToArray();
             }
             catch
             {
                 throw new ArgumentException("Vertex argument must be comma separated X,Y coordinate");
             }
 
-            if (vertices.Length != 3) throw new ArgumentException("Require 3 vertices to determine triangle name");
+            if (vertexCoords.Length != 2) throw new ArgumentException("Each vertex must include the X and Y coordinate");
 
-            if (vertices.FirstOrDefault(a => a.Length != 2) != null) throw new ArgumentException("Each vertex must include the X and Y coordinate");
-
-            return vertices;
+            return vertexCoords;
         }
     }
 }
