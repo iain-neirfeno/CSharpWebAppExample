@@ -54,6 +54,8 @@ Unit testing is done on the Triangles and CalculatedTriangleRepo projects to cov
 Classes purely involved in wiring .NET do not have associated unit tests as they do not have any business logic.
 
 # How To Run
+Application uses .Net 2.2 Core, which will need to be installed to run. 
+
 `launchSettings.json` is provided to allow running of the application in development.
 
 A `Dockerfile` is present as used by *CircleCI* to build a container containing the application.
