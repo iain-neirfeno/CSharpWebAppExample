@@ -30,7 +30,8 @@ namespace Triangles.TriangleByPosition
         {
             var triangle = _repo.FindTriangleByRowAndColumn(row, column);
             
-            if (triangle == null) throw new ArgumentOutOfRangeException();
+            if (triangle == null)
+                throw new ArgumentOutOfRangeException();
 
             return _mapper.Map<TriangleVerticesDto>(triangle);
         }

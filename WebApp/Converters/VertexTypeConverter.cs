@@ -23,7 +23,7 @@ namespace WebApp.Converters
             {
                 int[] vertexCoords = (value as string).Split(',').Select(int.Parse).ToArray();
                 if (vertexCoords.Length != 2)
-                    throw new Exception();
+                    throw new ArgumentOutOfRangeException();
 
                 return new Vertex
                 {

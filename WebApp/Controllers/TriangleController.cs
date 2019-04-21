@@ -44,7 +44,7 @@ namespace WebApp.Controllers
             {
                 return Ok(_triangleByVerticesService.GetTriangleByVertices(vertex1.X, vertex1.Y, vertex2.X, vertex2.Y, vertex3.X, vertex3.Y));
             }
-            catch (ArgumentException e)
+            catch (ArgumentOutOfRangeException e)
             {
                 return BadRequest(new
                 {

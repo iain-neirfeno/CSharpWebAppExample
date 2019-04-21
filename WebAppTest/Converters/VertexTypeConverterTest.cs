@@ -44,7 +44,7 @@ namespace WebAppTest.Converters
         [InlineData("0,0,0")]
         public void CanNotConvertStringsOfTheWrongLength(string str)
         {
-            Assert.Throws<Exception>(() => _testSubject.ConvertFrom(null, null, str));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _testSubject.ConvertFrom(null, null, str));
         }
 
         [Theory]
